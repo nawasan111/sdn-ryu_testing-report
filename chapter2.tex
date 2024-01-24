@@ -1,1 +1,111 @@
 \section{ผลลัพธ์และการอภิปราย (Results and discussion)}
+\indent\indent
+เหตุผลที่ต้องทำการรัน 3 รอบ ในแต่ละรูปแบบนั้น เนื่องมาจากในขั้นตอนการเตรียมเครื่องมือและซอฟต์แวร์นั้นได้มีการรันทดสอบ และพบว่าค่ามีความแกว่งในบางครั้ง โดยในการรันครั้งแรกดรอปแพ็กเกจได้ 8\% ในการรันครั้งที่ 2 อาจจะเพิ่มเป็น 30\% หรือ 35\% 
+ดังนั้นจึงได้มีการออกแบบขั้นตอนการทดลองที่เหมือนกันมากที่สุดเพื่อลดปัจจัยที่อาจจะกระทบและทำให้ผลลัพธ์เปลี่ยนไปอย่างมีนัยยะสำคัญ นอกจากนั้นจึงได้มีการรันทดสอบ 3 รอบของแต่ละรูปแบบเพื่อลดโอกาสที่ค่าจะออกมาคลาดเคลื่อนหรือผิดไปจากที่ควรจะเป็น 
+และในการรันทดสอบนั้นมีการจับแพ็กเกจด้วย wireshark ที่ s4-eth1 และ s11-eth2 ซึ่งทำให้มี 2 ค่าที่เกิดขึ้นจากทั้ง 2 ขาของการจับแพ็กเกจ ทางผู้ทดลองต้องการทำให้เป็นค่าเพียงหนึ่งค่า
+จึงจะทำการรวมค่าจาก s4-eth1 และ s11-eth2 ให้เป็นค่าหนึ่งโดยการบวก และในการรันทดสอบ 3 ครั้งนั้น 
+ผู้ทำการทดลองพิจารณาแล้วว่าจะเลือกค่าอัตราการดรอปแพ็กเกจที่น้อยที่สุดมาใช้ในการวิเคราะห์ ด้วยเหตุที่ว่าค่าที่มีการแกว่งนั้นมักจะเป็นค่าที่มีค่ามากหรือมากที่สุด
+\\
+\subsection{ผลลัพธ์ประสิทธิภาพด้านเวลา}
+\indent\indent
+ผลลัพธ์การรันทดสอบการโจมตีในด้านประสิทธิภาพเวลา มีผลลัพธ์เป็นดังนี้ 
+Group table แบบ Single Controller (A1) มีค่า time span เท่ากับ 18.7
+Group table แบบ Multi Controllers (A2) มีค่า time span เท่ากับ 21.5
+Proxy Arp แบบ Single Controller (A3) มีค่า time span เท่ากับ 14.1
+Proxy Arp แบบ Multi Controllers (A4) มีค่า time span เท่ากับ 22.3
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title=\textbf{ประสิทธิภาพด้านเวลา},
+            ylabel=time (s),
+            ybar,
+            ymax=30,
+            ymin=0,
+            nodes near coords,
+            nodes near coords align={vertical},
+            bar width=1em,
+            symbolic x coords={A1,A2,A3,A4},
+            xtick=data,
+            enlarge x limits=0.5,
+            ]
+            \addplot[fill=blue] coordinates {
+                (A1,18.7)
+                (A2,21.5)
+                (A3,14.1)
+                (A4,22.3)
+            };
+           % \legend{A1,A2,A3,A4}
+            % \legend{Men,Women}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{แผนภูมิแสดงผลลัพธ์ประสิทธิภาพด้านเวลา}
+\end{figure}
+\subsection{ผลลัพธ์ประสิทธิภาพด้านการตรวจจับการโจมตี}
+\indent\indent
+ผลลัพธ์การรันทดสอบการโจมตีในด้านประสิทธิภาพการตรวจจับการโจมตี มีผลลัพธ์เป็นดังนี้ 
+Group table แบบ Single Controller (A1) มีค่า droped packages เท่ากับ 8.7\%
+Group table แบบ Multi Controllers (A2) มีค่า droped packages เท่ากับ 20.4\%
+Proxy Arp แบบ Single Controller (A3) มีค่า droped packages เท่ากับ 6.3\%
+Proxy Arp แบบ Multi Controllers (A4) มีค่า droped packages เท่ากับ 19.4\%
+\\
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title=\textbf{ประสิทธิภาพด้านการตรวจจับการโจมตี},
+            ylabel=droped packages (\%),
+            ybar,
+            ymax=30,
+            ymin=0,
+            nodes near coords,
+            nodes near coords align={vertical},
+            bar width=1em,
+            symbolic x coords={A1,A2,A3,A4},
+            xtick=data,
+            enlarge x limits=0.5,
+            ]
+            \addplot[fill=red] coordinates {
+                (A1,8.7)
+                (A2,20.4)
+                (A3,6.3)
+                (A4,19.4)
+            };
+           % \legend{A1,A2,A3,A4}
+            % \legend{Men,Women}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{แผนภูมิแสดงผลลัพธ์ประสิทธิภาพด้านการตรวจจับการโจมตี}
+\end{figure}
+\pagebreak
+\subsection{สรุปผลการทดลอง}
+\indent\indent
+จากผลลัพธ์ที่ได้รายงานข้างต้น จะสังเกตได้ว่าในประสิทธิภาพด้านเวลานั้นไม่ได้มีความแตกต่างกันมาก แต่ก็พอจะกล่าวได้ว่าการใช้ Proxy Arp นั้นให้ประสิทธิภาพด้านความเร็วที่มากกว่า group table รวมไปถึงการใช้ Multi Controller ก็ให้ประสิทธิภาพด้านความเร็วที่มากกว่า Single Controllers 
+และหากพิจารณาระหว่าง group table และ proxy arp บน Single Controller จะเห็นได้ว่า Proxy arp ให้ประสิทธิภาพด้านความเร็วอย่างเห็นได้ชัด
+แต่หากพิจารณาบน Muti Controllers ก็จะพบว่าไม่ได้มีความต่างเท่าใดนัก อาจกล่าวได้ว่าให้ประสิทธิภาพที่เท่าๆ กัน
+\\\indent
+ในประสิทธิภาพด้านการตรวจจับการโจมตีนั้น จะสังเกตได้ว่า ทั้ง Group table และ Proxy arp ไม่ได้มีความต่างอย่างมีนัยสำคัญ แต่ว่าสิ่งที่ต่างอย่างเห็นได้ชัดเจนคือการรันแบบ Single Controller และ Multi Controllers โดยการรันแบบ Multi Controllers จะสามารถตรวจจับการโจมตีและทำการ drop packages ได้มากกว่าการรันแบบ Single Controller 
+ดังนั้นหากพิจารณาต้องการการตรวจจับและป้องกันการโจมตี การรันด้วย Multi Controllers ก็ถือเป็นตัวเลือกที่น่าสนใจ
+\\
+\subsection{ข้อเสนอแนะ}
+\indent\indent
+ในการทดลองครั้งนี้ถูกรันบนเครื่องเซิร์ฟเวอร์จำลอง และสร้าง Topology จำลองขึ้น นอกจากนั้นการออกแบบขั้นตอนการทดลองยังคงไม่รัดกุมและชัดเจนมากเท่าที่ควร 
+ซึ่งอาจจะทำให้ผลลัพธ์คลาดเคลื่อนจากความเป็นจริง อาจกล่าวได้ว่าการทดลองนี้เป็นเพียงการทดลองเบื้องต้นเพียงเท่านั้น
+ดังนั้นผู้อ่านจึงต้องมีความระมัดระวัง และรอบคอบในการนำไปใช้
+
+\begin{comment}
+
+group_single 8.7 80.4 44.2 | 44.4 | 8.7
+group_single 18.7 8.4 6.8         | 18.7
+
+group_multi 32.5 31.2 20.4 | 28.0 | 20.4
+group_multi 23.5 21.8 21.5        | 21.5
+
+arp_single 12   6.3  70.3  | 29.5 | 6.3
+arp_single 19.2 14.1 7.8          | 14.1  
+
+arp_multi 37.2 25.6 19.4   | 27.4 | 19.4
+arp_multi 24.1 25.5 22.3          | 22.3
+
+\end{comment}

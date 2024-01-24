@@ -3,39 +3,98 @@
 \subsection{วัตถุประสงค์}  
 \indent\indent
 \gls{sdn} นั้นมีการใช้งานและการตั้งค่าที่หลากหลาย
-ไม่ว่าจะเพื่อให้เหมาะกับ \gls{network-system} ขององค์กรหรือหน่วยงานของตนเอง ยังต้องช่วยเพิ่มประสิทธิภาพของ\gls{network-system}อีกด้วย
+ไม่ว่าจะเพื่อให้เหมาะกับ \gls{network-system} ขององค์กรหรือหน่วยงานของตน ยังต้องช่วยเพิ่มประสิทธิภาพของ\gls{network-system}อีกด้วย
 นอกจากนั้น \gls{sdn} ยังถูกนำมาใช้เพื่อป้องกันการโจมตีผ่าน\gls{network-system} ไม่ว่าจะเป็น Dos หรือ DDos
-อย่างไรก็ดี\gls{sdn}นั้นก็คือ \gls{software} รูปแบบหนึ่ง
-ดังนั้นก็จะมี\gls{software}หลายตัวที่ถูกพัฒนาขึ้นเป็น ``\gls{sdn}'' เช่น RYU OpenDaylight NOX POX
-
-วัตถุประสงค์ของการทดลองนี้เพื่อหาประสิทธิภาพทั้งในด้านเวลาและการตรวจจับการโจมตีของ \gls{ryu} ที่ถูกรันอยู่ใน SDN Controller
+อย่างไรก็ตาม\gls{sdn}นั้นก็คือ \gls{software} รูปแบบหนึ่ง
+ดังนั้นก็จะมี\gls{software}หลายตัวที่ถูกพัฒนาขึ้นเป็น ``\gls{sdn}'' เช่น RYU OpenDaylight NOX POX ฯลฯ 
+ตังนั้น
+วัตถุประสงค์ของการทดลองนี้ก็เพื่อหาประสิทธิภาพทั้งในด้านเวลาและการตรวจจับการโจมตีของ \gls{ryu} ซึ่งเป็น\gls{sdn}ประเภทหนึ่ง ที่ถูกรันอยู่ใน SDN Controller
 พร้อมกับการใช้งาน Group table หรือ Proxy ARP ทั้งในรูปแบบ Single Controller และ Multi Controller 
 \\
 \subsection{การตั้งค่าการจำลอง (Simulation setup)}
-\indent\indent
-ให้นักศึกษา บอกถึง เครื่องมือ (Tools) ทั้งหมด ที่นักศึกษาใช้ ทดสอบระบบ เช่น ใช้  emulation Mininet จำลอง Topology แบบ Single Controller และ Multiple
-Controlleres ดังภาพที่ 1.1 หรือ อะไรก็ว่าไป เป็นต้น
-น่าจะกล่าวถึง Ryu Controller Famework, emulation Mininet, ภาษา Python 
-\\--------------\\
+
 \textbf{เครื่องมือและอุปกร์ที่ใช้ในการทดลองมีดังนี้} 
+
 \begin{itemize}
-    \item Oracle VM VirtualBox เวอร์ชั่น 7.0.14 ใช้สำหรับการจำลองเครื่องเซิร์ฟเวอร์
-    \item ระบบปฏิบัติการ Ubuntu server 22.04.3
-    \item Python 3.9.18 และ 2.7.18
-    \item RYU version 4.34
-    \item mininet version 2.3.1b4
-    \item wireshark 3.6.2
-    \item vim version 8.2.2121
+    \item Notebook Lenovo IdeaPad 5 14IIL05 รันด้วยระบบปฏิบัติการ Arch Linux 6.7.4-arch1-1 
+    \hspace{1em}เป็นอุปกรณ์ที่ใช้สำหรับการรัน\gls{software}ทดสอบทั้งหมด
+    \item GNOME Terminal Version 3.50.1 \hspace{1em}
+    เป็น\gls{software}อยู่บน Notebook ที่จะใช้ในการ ssh เข้าไปใน server 
+    \item Oracle VM VirtualBox เวอร์ชั่น 7.0.14\hspace{1em} 
+    ใช้สำหรับการจำลองเครื่องเซิร์ฟเวอร์ขึ้นมาเป็นอีกเครื่องหนึ่งบน Notebook
+     ที่กล่าวไปข้างต้น ซึ่งจะทำให้เหมือนว่ามีเครื่องเซิร์ฟเวอร์แยกเป็นอีกเครื่องหนึ่งจริงๆ
+    \item ระบบปฏิบัติการ Ubuntu server 22.04.3\hspace{1em}
+    คือระบบปฏิบัติการที่ถูกรันอยู่บนเครื่อง Oracle VM VirtualBox 
+    \item Python version 3.9.18 และ 2.7.18 \hspace{1em}
+    คือ runtime สำหรับรัน script ไฟล์ที่เขียนด้วยภาษา Python ซึ่งจะใช้ในการรัน \gls{ryu} รวมไปถึงการจำลอง Topology ของ mininet
+    \item RYU version 4.34\hspace{1em}
+    คือ \gls{software} ที่ได้กล่าวไปข้างต้น ซึ่งเป็น\gls{software}หลักตัวหนึ่ง ที่จะถูกใช้ในการทดลองครั้งนี้
+    \item mininet version 2.3.1b4\hspace{1em}
+    คือ\gls{software}ที่จะทำการจำลอง Topology ขึ้นมาภายในเครื่องจำลอง Ubuntu server ที่รันอยู่บน Oracle VM VirtualBox
+    \item wireshark 3.6.2 \hspace{1em}
+    คือ\gls{software}ที่จะช่วยในการดักจับข้อมูลที่วิ่งผ่าน\gls{network-system} ซึ่งจะเป็น\gls{software}ที่ใช้ในการวัดประสิทธิภาพในด้านเวลาและการป้องกันการโจมตี
+    \item vim version 8.2.2121\hspace{1em}
+    คือ\gls{software}ที่ใช้ในการแก้ไขไฟล์ข้อความหรือไฟล์ script ต่างๆ บนระบบปฏิบัติการ Ubuntu server
+    \item Vscode 1.86.1\hspace{1em}
+    เป็น\gls{software}อีกตัวหนึ่งที่ใช้ในการแก้ไขไฟล์ข้อความซึ่งมี Extensions ช่วยในการเขียน ซึ่งในการทดลองนี้จะนำมาใช้ในการแก้ไขไฟล์ script ของ Python ในกรณีที่ต้องการความแม่นยำหรือแก้ปัญหาที่ซับซ้อน
 \end{itemize}
-\\
-\begin{LARGE}
-     ถึงตรงนี้ และจะเขียนคำอธิบายเพิ่มเติมสำหรับ เครื่องมือ
-\end{LARGE}
+
 \subsection{รูปแบบในการทดลอง}
 \indent\indent
-การทดลองมี 4 รูปแบบ ดัง (A1)-(A4) โดย (A1) และ (A3) ใช้คำสั้ง XXX ในการจำลอง Topology และ (A2) และ (A4) ใช้ภาษา Python 3.9 ในการจำลอง Topology ซึ่งทั้ง 4 รูปแบบมีการจองลองการโจมตีโดยการใช้คำสั้ง ping จาก Node-N ใดไปยัง Node-M ใด ด้วยจำนวน Package เท่าไร
+ก่อนที่จะทำการทดลองนั้นต้องทำการเตรียม python scripts ที่ใช้ในการสร้าง topology จำลองบน mininet
+ซึ่งต้องสร้างทั้งแบบ Single Controller และ Multi Controllers โดยสามารถใช้ mininet gui สร้างได้ ตามภาพด้านล่างนี้
+หรือสามารถดาวน์โหลดไฟล์ scripts ได้ที่ http://projectcs.sci.ubu.ac.th/nawasan/sdn-topo-mininet
+\\
+\begin{figure}[h!]
+    \centering
+    \includegraphics*[width=20em]{single-edit.png}
+    \caption{Topology แบบ Single Controller}
+    \label{img:topo_cs}
+\end{figure}
 
-\$ ryu-manager learn-sdn-with-ryu/ryu-exercises/ex7\_group\_tables.py
+\begin{figure}[h!]
+    \centering
+    \includegraphics*[width=20em]{multi-edit.png}
+    \caption{Topology แบบ Multi Controller}
+    \label{img:topo_cm}
+\end{figure}
 
-\$ sudo python3 (ชื่อไฟล์).py
+ในการทดลองครั้งนี้มี 4 รูปแบบ ซึ่งจะกำหนดให้มีความต่างเฉพาะที่กำหนด และขั้นตอนวิธียังคงเหมือนกัน
+โดยสิ่งที่ต้องเตรียมคือ Terminal ให้ทำการเปิดขึ้นมา 3 หน้าต่าง และทำการ ssh เข้าไปที่เซิร์ฟเวอร์จำลองให้เรียบร้อย 
+โดยหน้าต่างที่ 1 จะใช้สำหรับการรัน \gls{ryu} ทั้งแบบ group table และ proxy arp 
+หน้าต่างที่ 2 จะใช้สำหรับการรัน topology จำลอง ทั้งแบบ Single Controller และ Multi Controllers 
+และให้ h2 โจมตีไปยัง h12
+หน้าต่างที่ 3 จะใช้สำหรับการรัน wireshark สำหรับตรวจจับแพ็กเกจ
+โดยจะมีขั้นตอนดังนี้
 
+\begin{enumerate}
+    \item หน้าต่างที่ 1 ทำการรันคำสั่ง
+    \$ ryu-manager learn-sdn-with-ryu/ryu-exercises/<python script> \\โดย python script จะแทนด้วย ex7\_group\_tables.py และ ex8\_arp\_proxy.py 
+    \\ซึ่งได้มาจาก https://github.com/knetsolutions/learn-sdn-with-ryu.git
+    \item หน้าต่างที่ 2 ทำการรันคำสั่ง
+    \$ sudo python3 <python script> \\
+    โดย python script จะแทนด้วย single\_topo.py และ multi\_topo.py 
+    \item หน้าต่างที่ 3 ทำการรันคำสั่ง
+    \$ sudo wireshark \\
+    โดยจับที่ขา s4-eth0 และ s11-eth2 ปริมาณ 1,000,000 แพ็กเกจ
+    \item หน้าต่างที่ 2 ให้ h2 โจมตี h12 ด้วยคำสั่ง \$ mininet> h2 hping3 h12 -S --flood -V
+    \item เมื่อทำการจับแพ็กเกจครบ 1,000,000 แพ็กเกจแล้ว ทำการเก็บข้อมูลวิเคราะห์จาก wireshark จากนั้นให้ทำการหยุดรันในทุกๆ หน้าต่าง หากจะทำการทดลองรอบถัดไปต้องรันขั้นตอนใหม่ตั้งแต่ขั้นตอนที่ 1.
+\end{enumerate}
+
+ในการทดลองครั้งนี้จะมี 4 รูปแบบ โดยทั้ง 4 รูปแบบจะทำการรัน 3 รอบ คือ 
+
+\begin{enumerate}
+    \item (A1) group table แบบ Single Controller \\
+    หน้าต่างที่ 1 จะทำการรัน ryu ด้วย script ไฟล์ที่ชื่อ ex7\_group\_tables.py 
+    และ หน้าต่างที่ 2 ทำการรัน single-topo.py
+    \item (A2) group table แบบ Multi Controllers \\
+    หน้าต่างที่ 1 จะทำการรัน ryu ด้วย script ไฟล์ที่ชื่อ ex7\_group\_tables.py
+    และ หน้าต่างที่ 2 ทำการรัน multi-topo.py
+    \item (A3) proxy arp แบบ Single Controller \\
+    หน้าต่างที่ 1 จะทำการรัน ryu ด้วย script ไฟล์ที่ชื่อ ex8\_arp\_proxy.py
+    และ หน้าต่างที่ 2 ทำการรัน single-topo.py
+    \item (A4) proxy arp แบบ Multi Controllers \\
+    หน้าต่างที่ 1 จะทำการรัน ryu ด้วย script ไฟล์ที่ชื่อ ex8\_arp\_proxy.py
+    และ หน้าต่างที่ 2 ทำการรัน multi-topo.py
+ 
+\end{enumerate}
