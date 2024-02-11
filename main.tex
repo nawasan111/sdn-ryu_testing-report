@@ -12,7 +12,8 @@
 %--ตั้งหัวกระดาษ--%
 \usepackage{fancyhdr}
 \pagestyle{fancyplain}
-\fancyhead[L]{content for \fancyplain{plain}{fancy} pages}
+
+\fancyhead[L]{software defined networks ใบงานที่ 9}
 \fancyhead[R]{\thepage}
 %--*********--%
 \usepackage[no-math]{fontspec} % จัดการเกี่ยวกับฟ้อนต์
@@ -29,6 +30,11 @@
 ]{THSarabunNew.ttf}
 %--*********************--%
 %--config--%
+\usepackage{glossaries}
+\newacronym{sdn}{ระบบเครือข่ายที่กําหนดโดยซอฟต์แวร์}{ Software-defined networking }
+\newacronym{ryu}{RYU}{ RYU SDN framework }
+\newacronym{software}{ซอฟต์แวร์}{ Software }
+\newacronym{network-system}{ระบบเครือข่าย}{ Network system }
 \usepackage{titlesec}
 \titleformat{\section}
   {\normalfont\fontsize{16}{15}\bfseries}{\thesection}{1em}{}
@@ -59,4 +65,5 @@
 \end{titlepage}
 %--***************--%
 \include{chapter1}
+\include{chapter2}
 \end{document}

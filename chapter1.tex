@@ -1,6 +1,41 @@
-\newpage
-\section{หัวข้ออันดับที่หนึ่ง}
-\lipsum[1]
+\section{ระเบียบวิธี} 
 
-\section{หัวข้อสอง}
-\lipsum[2]
+\subsection{วัตถุประสงค์}  
+\indent\indent
+\gls{sdn} นั้นมีการใช้งานและการตั้งค่าที่หลากหลาย
+ไม่ว่าจะเพื่อให้เหมาะกับ \gls{network-system} ขององค์กรหรือหน่วยงานของตนเอง ยังต้องช่วยเพิ่มประสิทธิภาพของ\gls{network-system}อีกด้วย
+นอกจากนั้น \gls{sdn} ยังถูกนำมาใช้เพื่อป้องกันการโจมตีผ่าน\gls{network-system} ไม่ว่าจะเป็น Dos หรือ DDos
+อย่างไรก็ดี\gls{sdn}นั้นก็คือ \gls{software} รูปแบบหนึ่ง
+ดังนั้นก็จะมี\gls{software}หลายตัวที่ถูกพัฒนาขึ้นเป็น ``\gls{sdn}'' เช่น RYU OpenDaylight NOX POX
+
+วัตถุประสงค์ของการทดลองนี้เพื่อหาประสิทธิภาพทั้งในด้านเวลาและการตรวจจับการโจมตีของ \gls{ryu} ที่ถูกรันอยู่ใน SDN Controller
+พร้อมกับการใช้งาน Group table หรือ Proxy ARP ทั้งในรูปแบบ Single Controller และ Multi Controller 
+\\
+\subsection{การตั้งค่าการจำลอง (Simulation setup)}
+\indent\indent
+ให้นักศึกษา บอกถึง เครื่องมือ (Tools) ทั้งหมด ที่นักศึกษาใช้ ทดสอบระบบ เช่น ใช้  emulation Mininet จำลอง Topology แบบ Single Controller และ Multiple
+Controlleres ดังภาพที่ 1.1 หรือ อะไรก็ว่าไป เป็นต้น
+น่าจะกล่าวถึง Ryu Controller Famework, emulation Mininet, ภาษา Python 
+\\--------------\\
+\textbf{เครื่องมือและอุปกร์ที่ใช้ในการทดลองมีดังนี้} 
+\begin{itemize}
+    \item Oracle VM VirtualBox เวอร์ชั่น 7.0.14 ใช้สำหรับการจำลองเครื่องเซิร์ฟเวอร์
+    \item ระบบปฏิบัติการ Ubuntu server 22.04.3
+    \item Python 3.9.18 และ 2.7.18
+    \item RYU version 4.34
+    \item mininet version 2.3.1b4
+    \item wireshark 3.6.2
+    \item vim version 8.2.2121
+\end{itemize}
+\\
+\begin{LARGE}
+     ถึงตรงนี้ และจะเขียนคำอธิบายเพิ่มเติมสำหรับ เครื่องมือ
+\end{LARGE}
+\subsection{รูปแบบในการทดลอง}
+\indent\indent
+การทดลองมี 4 รูปแบบ ดัง (A1)-(A4) โดย (A1) และ (A3) ใช้คำสั้ง XXX ในการจำลอง Topology และ (A2) และ (A4) ใช้ภาษา Python 3.9 ในการจำลอง Topology ซึ่งทั้ง 4 รูปแบบมีการจองลองการโจมตีโดยการใช้คำสั้ง ping จาก Node-N ใดไปยัง Node-M ใด ด้วยจำนวน Package เท่าไร
+
+\$ ryu-manager learn-sdn-with-ryu/ryu-exercises/ex7\_group\_tables.py
+
+\$ sudo python3 (ชื่อไฟล์).py
+
