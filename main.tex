@@ -1,4 +1,6 @@
 \documentclass[14pt,a4paper]{extarticle}
+\usepackage{blindtext} % สำหรับสารบัญ
+\renewcommand*\contentsname{สารบัญ}
 \usepackage{lipsum} % can be remove
 \usepackage{geometry}
  \geometry{
@@ -15,6 +17,7 @@
 
 \fancyhead[L]{การทดลองหาประสิทธิภาพด้านเวลาและการป้องกันการโจมตีของ RYU SDN Framework}
 \fancyhead[R]{\thepage}
+\fancyfoot{}
 %--*********--%
 \usepackage{comment}
 \usepackage[no-math]{fontspec} % จัดการเกี่ยวกับฟ้อนต์
@@ -76,6 +79,8 @@
   \end{center}
 \end{titlepage}
 %--***************--%
+\tableofcontents
+\clearpage
 % \include{chapter1}
 \input{chapter1.tex}
 \input{chapter2.tex}
