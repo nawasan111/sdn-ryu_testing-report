@@ -34,6 +34,7 @@
 ]{THSarabunNew.ttf}
 %--*********************--%
 %--config--%
+\def\notebook{คอมพิวเตอร์วางตัก}
 \usepackage{hyperref}
 \hypersetup{
   pdftitle={การทดลองหาประสิทธิภาพด้านเวลาและการป้องกันการโจมตีของ RYU SDN Framework โดยใช้ Group table และ Proxy arp ในรูปแบบ Single Controller และ Multi Controllers},
@@ -43,7 +44,9 @@
 \usepackage{glossaries}
 \newacronym{sdn}{ระบบเครือข่ายที่กําหนดโดยซอฟต์แวร์}{ Software-defined networking }
 \newacronym{ryu}{RYU}{ RYU SDN framework }
+\newacronym{server}{เครื่องแม่ข่าย}{ Server }
 \newacronym{software}{ซอฟต์แวร์}{ Software }
+\newacronym{controller}{ตัวควบคุม}{ Controllers }
 \newacronym{network-system}{ระบบเครือข่าย}{ Network system }
 \glsdisablehyper
 \usepackage{titlesec}
@@ -81,8 +84,9 @@
 %--***************--%
 \tableofcontents
 \clearpage
-% \include{chapter1}
-\input{chapter1.tex}
-\input{chapter2.tex}
-% \include{chapter2}
+
+\include{chapter1}
+\include{chapter2}
+% \input{chapter1.tex}
+% \input{chapter2.tex}
 \end{document}
