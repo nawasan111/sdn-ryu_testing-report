@@ -8,3 +8,6 @@
 \contentsline {subsection}{\numberline {2.2}ผลลัพธ์การทดลองด้านสถิติ}{9}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}สรุปผลการทดลอง}{10}{subsection.2.3}%
 \contentsline {subsection}{\numberline {2.4}ข้อเสนอแนะ}{10}{subsection.2.4}%
+\contentsline {section}{\numberline {3}ภาคผนวก}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}การเผยแพร่}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}ประวัติผู้จัดทำ}{11}{subsection.3.2}%
